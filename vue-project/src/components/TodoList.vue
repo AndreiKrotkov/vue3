@@ -24,17 +24,17 @@
 </template>
 
 <script setup lang="ts">
-  import axios from 'axios'
   import { ref, computed } from 'vue'
   import TodoItem from '@/components/TodoItem.vue'
+  import { Url } from '@/enum/enum'
+  import $http  from '@/api/http'
 
   let dataProducts: any = ref([])
   const open: any = ref(['Users'])
   const products = computed(() => dataProducts.value)
 
-  axios.get('https://fakestoreapi.com/products').then((resp: any) => {
+  $http.get(Url.todoLis).then((resp: any) => {
     dataProducts.value = resp.data
-    console.log('resp', resp.data)
   }).catch((err: any) => err)
 </script>
 
