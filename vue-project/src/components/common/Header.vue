@@ -1,13 +1,13 @@
 <template>
   <header>
     <div class="wrapper">
-      This is Header
+      {{ props.title }}
     </div>
   </header>
 </template>
 
-<script setup>
-
+<script setup lang="ts">
+    const props = defineProps(['title'])
 </script>
 
 <style scoped>

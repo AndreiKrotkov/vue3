@@ -1,3 +1,3 @@
 export enum Url {
-    todoLis = 'https://fakestoreapi.com/products',
+    productList = 'https://fakestoreapi.com/products',
 }

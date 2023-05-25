@@ -1,43 +1,56 @@
 <template>
-  <v-row no-gutters class="d-flex justify-center">
-    <v-col cols="6">
-      <v-list v-model:opened="open">
-        <v-list-group>
-          <template v-slot:activator="{ props }">
-            <v-list-item
-              v-bind="props"
-              prepend-icon="mdi-account-circle"
-              title="Products"
-            />
-          </template>
-
-          <TodoItem
-            v-for="item in products"
-            :key="item.id"
-            :title="item.title"
-            :value="item.title"
-          />
-        </v-list-group>
-      </v-list>
-    </v-col>
-  </v-row>
+  <ul class="d-flex justify-space-between flex-wrap">
+      <TodoItem
+        v-for="item in filteredList"
+        :key="item.id"
+        :item="item"
+        :class="selectedItems.indexOf(item.id) > -1 ? 'selected' : ''"
+        @add-item-basket="fnHandlerAddBasket"
+      />
+  </ul>
 </template>
-
 <script setup lang="ts">
-  import { ref, computed } from 'vue'
-  import TodoItem from '@/components/TodoItem.vue'
-  import { Url } from '@/enum/enum'
-  import $http  from '@/api/http'
+    import TodoItem from '@/components/TodoItem.vue'
+    import {Url} from '@/enum/enum'
+    import $http from '@/api/http'
+    import { ref, onMounted, computed, defineEmits } from 'vue'
 
-  let dataProducts: any = ref([])
-  const open: any = ref(['Users'])
-  const products = computed(() => dataProducts.value)
+    const props: any = defineProps(['search'])
 
-  $http.get(Url.todoLis).then((resp: any) => {
-    dataProducts.value = resp.data
-  }).catch((err: any) => err)
+    let productsList: any = ref([])
+    let selectedItems: any = ref([])
+    let emit: any = defineEmits()
+
+    const filteredList: any = computed(() => {
+        const search: string = props.search || '';
+        return productsList.value.filter(function (elem: any) {
+            if(search === '') return true;
+            else return elem.title.indexOf(search) > -1;
+        })
+    })
+
+    const fnGetCompositionData = () => {
+        $http.get(Url.productList).then((resp: any) => {
+            productsList.value = resp.data
+        }).catch((err: any) => err)
+    }
+
+    onMounted(fnGetCompositionData)
+
+    const fnHandlerAddBasket = (id: number) => {
+        if (selectedItems.value.includes(id)) {
+          selectedItems.value = selectedItems.value.filter((selectedKeyID: any) => selectedKeyID !== id
+          )
+        } else {
+          selectedItems.value.push(id)
+        }
+
+        emit('add-basket', selectedItems)
+    }
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+    .selected {
+        box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5)
+    }
 </style>

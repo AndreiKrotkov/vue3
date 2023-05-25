@@ -9,6 +9,7 @@ import Footer from '@/components/common/Footer.vue'
     <v-main>
       <v-container
         fluid
+        class="px-0 py-0 my-0 mx-0"
       >
         <v-layout
           align-center
