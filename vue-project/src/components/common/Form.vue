@@ -34,7 +34,7 @@
               </div>
             </v-form>
             <div class="d-flex justify-end">
-                <v-btn @click="fnSubmit" class="my-1 mx-1">Отправить</v-btn>
+                <v-btn @click="fnSubmit" class="my-1 mx-1" :disabled="!valid">Отправить</v-btn>
             </div>
         </template>
         <template v-else>
@@ -45,39 +45,37 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-
-const valid = ref(false)
-const isValidForm = ref(false)
-const firstname = ref('')
-const lastname = ref('')
-const email = ref('')
-
-const nameRules = ref([
-    (value: any) => {
-        if (value) return true
-            return 'Name is requred.'
-        },
-    (value: any) => {
-        if (value?.length <= 10) return true
-        return 'Name must be less than 10 characters.'
-    },
-])
-const emailRules = ref([
-    (value: any) => {
-        if (value) return true
-            return 'E-mail is requred.'
-        },
-    (value: any) => {
-        if (/.+@.+\..+/.test(value)) return true
-            return 'E-mail must be valid.'
+    const valid = ref(false)
+    const isValidForm = ref(false)
+    const firstname = ref('')
+    const lastname = ref('')
+    const email= ref('')
+    const nameRules = ref([
+        (value: any) => {
+            if (value) return true
+                return 'Name is requred.'
+            },
+        (value: any) => {
+            if (value?.length <= 10) return true
+            return 'Name must be less than 10 characters.'
         },
     ])
+    const emailRules = ref([
+        (value: any) => {
+            if (value) return true
+                return 'E-mail is requred.'
+        },
+        (value: any) => {
+            if (/.+@.+\..+/.test(value)) return true
+                return 'E-mail must be valid.'
+        }
+    ])
 
-const fnSubmit = () => {
-    if (valid.value) {
-        isValidForm.value = true
+    const fnSubmit = () => {
+        if (valid.value) {
+            isValidForm.value = true
+        }
     }
-}
 </script>
 
 <style scoped lang="scss">

@@ -2,28 +2,77 @@
     <li class="list-item d-flex flex-column justify-space-between">
         <div>
             <div class="image">
-                <img :src="props.item.image" alt="img">
+                <img :src="localItem.image" alt="img">
             </div>
             <div class="desc my-4">
-                <span>{{ props.item.title }}</span>
+                <span>{{ localItem.title }}</span>
             </div>
         </div>
 
         <div class="rating d-flex justify-space-between align-center px-4">
-            <span>Price: {{ props.item.rating.count }} $</span>
-            <v-btn @click="fnAddBasket">
-                Buy
-            </v-btn>
+            <div class="info d-flex flex-column">
+                <span>Price: {{ localItem.rating.count }} $</span>
+                <span v-if="totalPrice !== 0">Total: {{ totalPrice }} $</span>
+            </div>
+
+            <div class="action">
+                <v-btn v-if="isBuy" @click="fnBuy">
+                    Buy
+                </v-btn>
+
+                <div v-else class="">
+                    <v-btn variant="plain" @click="fnCounterMinus">
+                        <v-icon icon="mdi-minus"></v-icon>
+                    </v-btn>
+
+                    {{ counter }}
+
+                    <v-btn variant="plain" @click="fnCounterPlus">
+                        <v-icon icon="mdi-plus"></v-icon>
+                    </v-btn>
+                </div>
+            </div>
         </div>
     </li>
 </template>
 
 <script setup lang="ts">
-import { defineEmits } from 'vue'
+    import { defineEmits, ref, computed } from 'vue'
+    import { useStore } from 'vuex'
+
+    const store = useStore()
     const props = defineProps(['item'])
+
     const emit = defineEmits()
-    const fnAddBasket = () => {
-        emit('add-item-basket', props.item.id)
+
+    const isBuy = ref(true)
+    const counter = ref(0)
+    const localItem = ref({ ...props.item })
+    const totalPrice = computed(() => {
+        return localItem.value.rating.count * localItem.value.counter || 0
+    })
+
+    const fnBuy = () => {
+        counter.value++
+        localItem.value.counter = counter.value
+        store.commit('setPurchasedGoods', localItem.value)
+        isBuy.value = false
+    }
+
+    const fnCounterMinus = () => {
+        counter.value--
+        localItem.value.counter = counter.value
+        store.commit('updatePurchasedGoods', localItem.value)
+
+        if (counter.value === 0) {
+            isBuy.value = true
+        }
+    }
+
+    const fnCounterPlus = () => {
+        counter.value++
+        localItem.value.counter = counter.value
+        store.commit('updatePurchasedGoods', localItem.value)
     }
 </script>
 
