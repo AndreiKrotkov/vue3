@@ -1,14 +1,19 @@
 <template>
-  <main>
-      <TodoList/>
-  </main>
+    <v-row no-gutters class="d-flex justify-center">
+        <v-col cols="6">
+            <Header :title="title" class="my-5" />
+        </v-col>
+    </v-row>
 </template>
 
 <script setup lang="ts">
-  import TodoList from '@/components/TodoList.vue'
+    import { ref } from 'vue'
+    import Header from '@/components/common/Header.vue'
+
+    const title = ref('Welcome!')
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 </style>
 
