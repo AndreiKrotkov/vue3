@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 const state = {
   basket: [],
-  loading: true
+  loading: false
 }
 
 const mutations = {
@@ -30,6 +30,9 @@ const mutations = {
         }
       }
     })
+  },
+  clearBasket(state: any) {
+    state.basket = []
   }
 }
 

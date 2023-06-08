@@ -1,6 +1,6 @@
 <template>
   <header>
-    <div class="header d-flex align-center pb-1">
+    <div class="header d-flex align-center">
         <v-icon :icon="props.icon" size="x-large" class="mr-3"></v-icon>
 
         <h1>{{ props.title }}</h1>
