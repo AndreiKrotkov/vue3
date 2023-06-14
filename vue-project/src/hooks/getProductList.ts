@@ -29,7 +29,6 @@ export const getList = (props: string) => {
 
     const fnGetProductId = () => {
         $http.get(Url.productList +'/'+ testQueryValue.value).then(() => {
-            console.log('eep')
         }).catch((err: any) => err)
     }
 

@@ -44,7 +44,8 @@
     const isValidForm = ref(false)
     const user = ref({
         login: '',
-        password: ''
+        password: '',
+        role: 'admin'
     })
 
     const passwordRules = ref([
