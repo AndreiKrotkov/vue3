@@ -35,9 +35,10 @@
 </template>
 
 <script setup lang="ts">
-    import {ref, computed, onMounted} from 'vue'
+    import { ref } from 'vue'
     import router from '@/router/index'
     import Header from '@/components/common/Header.vue'
+    import { useStore } from 'vuex'
 
     const title = ref('Login')
     const valid = ref(false)
@@ -46,6 +47,8 @@
         login: '',
         password: ''
     })
+
+    const store = useStore()
 
     const passwordRules = ref([
         (value: any) => {
@@ -71,6 +74,7 @@
     const fnSubmit = () => {
         if (valid.value) {
             localStorage.setItem('user', JSON.stringify(user.value))
+            store.commit('setUser', JSON.stringify(user.value))
             isValidForm.value = true
             router.push('/')
         }
