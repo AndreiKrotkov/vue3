@@ -37,13 +37,11 @@
 </template>
 
 <script setup lang="ts">
-    import { defineEmits, ref, computed } from 'vue'
+    import { ref, computed } from 'vue'
     import { useStore } from 'vuex'
 
     const store = useStore()
     const props = defineProps(['item'])
-
-    const emit = defineEmits()
 
     const isBuy = ref(true)
     const counter = ref(0)
