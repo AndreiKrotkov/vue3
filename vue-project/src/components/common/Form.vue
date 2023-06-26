@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+    import { ref } from 'vue'
     const valid = ref(false)
     const isValidForm = ref(false)
     const firstname = ref('')

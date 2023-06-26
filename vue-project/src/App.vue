@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import NavBar from '@/components/common/NavBar.vue'
-import Footer from '@/components/common/Footer.vue'
-</script>
-
 <template>
   <v-app>
     <NavBar />
@@ -26,6 +21,24 @@ import Footer from '@/components/common/Footer.vue'
   </v-app>
 </template>
 
+<script setup lang="ts">
+    import NavBar from '@/components/common/NavBar.vue'
+    import Footer from '@/components/common/Footer.vue'
+
+    import { computed, onMounted } from "vue";
+    import router from '@/router/index'
+
+    const authUser = computed(() => {
+        // @ts-ignore
+        return JSON.parse(localStorage.getItem('user'))
+    })
+
+    onMounted(() => {
+        if (!authUser.value) {
+            router.push('/auth')
+        }
+    })
+</script>
 <style>
 
 </style>

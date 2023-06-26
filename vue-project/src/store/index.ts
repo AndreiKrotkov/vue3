@@ -2,12 +2,14 @@ import { createStore } from 'vuex'
 
 const state = {
   basket: [],
-  loading: true
+  loading: false,
+  user: {},
+  productList: []
 }
 
 const mutations = {
-  setLoading(state: any, value: boolean) {
-    state.loading = value
+  setProductList(state: any, value: any) {
+    state.productList = value
   },
   setPurchasedGoods(state: any, value: Object) {
     if (state.basket.includes(value)) {
@@ -30,6 +32,12 @@ const mutations = {
         }
       }
     })
+  },
+  clearBasket(state: any) {
+    state.basket = []
+  },
+  setUser(state: any, value: any) {
+    state.user = value
   }
 }
 
@@ -39,7 +47,8 @@ const actions = {
 }
 
 const getters = {
-  basket: (state: any) => state.basket
+  basket: (state: any) => state.basket,
+  prodictList: (state: any) => state.productList
 }
 
 export default createStore({
