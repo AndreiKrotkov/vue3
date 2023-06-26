@@ -1,7 +1,7 @@
 <template>
   <header>
-    <div class="header d-flex align-center">
-        <v-icon :icon="props.icon" size="x-large" class="mr-3"></v-icon>
+    <div class="header d-flex align-center px-2">
+        <v-icon :icon="props.icon" size="x-large" class="mr-2"></v-icon>
 
         <h1>{{ props.title }}</h1>
     </div>
@@ -14,6 +14,7 @@
 
 <style scoped lang="scss">
     .header {
+      width: fit-content;
         border-bottom: 1px solid black;
     }
 </style>

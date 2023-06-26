@@ -12,7 +12,7 @@
                 <div class="product-list__title mb-3">Products:</div>
 
                 <div class="d-flex flex-wrap">
-                    <v-col cols="4" class="" v-for="item in store.getters.basket" :key="item.id">
+                    <v-col cols="4" class="px-0" v-for="item in store.getters.basket" :key="item.id">
                         <div class="d-flex flex-column pb-2 mb-4">
                             <span>title: {{ item.title }}</span>
                             <span>value: {{ item.counter }}</span>
