@@ -17,7 +17,7 @@
       </v-container>
     </v-main>
 
-    <Footer/>
+<!--    <Footer/>-->
   </v-app>
 </template>
 
@@ -39,6 +39,41 @@
         }
     })
 </script>
-<style>
+<style lang="scss" scoped>
+.blur {
+  position: relative;
 
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+  }
+}
+.app {
+  .v-application--wrap {
+    flex-direction: column;
+
+    @media screen and (min-width: 1200px) {
+      flex-direction: inherit;
+    }
+  }
+  .container {
+    background: #f5f8ff;
+    height: 100%;
+  }
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 1s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
 </style>
