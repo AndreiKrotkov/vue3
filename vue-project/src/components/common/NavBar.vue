@@ -1,12 +1,12 @@
 <template>
-  <v-navigation-drawer width="20%" permanent class="menu">
+  <v-navigation-drawer width="300" color="#5a69de" permanent class="menu">
     <div class="menu__content px-5 pt-13">
-      <div class="logo mb-6">
-<!--        <img :src="require('~/static/logo.svg')" alt="" />-->
+      <div class="logo mb-4">
+        <img src="src/assets/logo.jpg" alt="logo">
       </div>
 
-      <div class="menu__title mb-8">
-        <span style="color: red">Otus</span>
+      <div class="menu__title mb-8 d-flex flex-column">
+        <span> не Личный кабинет </span>
       </div>
 
       <v-list class="py-0">
@@ -15,75 +15,51 @@
           :key="i"
           :to="item.to"
           exact
-          class="px-1 mb-2"
+          class="menu-item px-1 mb-2"
           @click="handleClick(item)"
         >
-          <v-list-item-action class="mr-5 my-0">
-<!--            <img-->
-<!--              :src="-->
-<!--                item.icon-->
-<!--                  ? require(~/components/common/Menu/icons/${item.icon}.svg)-->
-<!--                  : ''-->
-<!--              "-->
-<!--            />-->
-          </v-list-item-action>
-          <v-list-item-content class="py-1">
-            <v-list-item-title>{{ item.name }}</v-list-item-title>
+          <v-list-item-content class="d-flex align-center py-1">
+            <v-icon color="white" :icon="item.icon" class="mr-3"></v-icon>
+            <v-list-item-title class="">{{ item.name }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
     </div>
   </v-navigation-drawer>
-<!--    <v-app-bar-->
-<!--        color="gray"-->
-<!--    >-->
-<!--        <v-row no-gutters class="justify-center">-->
-<!--            <v-col cols="10" class="d-flex justify-space-between">-->
-<!--                <v-toolbar-title>OTUS learning</v-toolbar-title>-->
-
-<!--                <div class="">-->
-<!--                    <v-btn to="/">Home</v-btn>-->
-<!--                    <v-btn-->
-<!--                        exact-->
-<!--                        :to="{-->
-<!--                            path: '/product_card',-->
-<!--                            query: { test: 1 }-->
-<!--                        }"-->
-<!--                    >-->
-<!--                        Product card-->
-<!--                    </v-btn>-->
-<!--                    <v-btn-->
-<!--                        exact-->
-<!--                        v-if="isRoleAdmin"-->
-<!--                        :to="{-->
-<!--                            path: '/admin'-->
-<!--                        }"-->
-<!--                    >-->
-<!--                        Admin-->
-<!--                    </v-btn>-->
-<!--                </div>-->
-<!--  -->
-<!--                <v-btn>-->
-<!--                    <v-icon @click="logout" icon="mdi-logout"></v-icon>-->
-<!--                </v-btn>-->
-<!--            </v-col>-->
-<!--        </v-row>-->
-<!--    </v-app-bar>-->
 </template>
 
 <script setup lang="ts">
     import router from '@/router/index'
     import { Roles } from '@/types/roles'
     import { computed, ref } from 'vue'
+    import { useStore } from 'vuex'
 
+    const store = useStore()
     const menuItems = ref([
       {
-        name: 'Активность',
-        to: '/activity'
+        name: 'Сводка',
+        to: '/',
+        icon: 'mdi-chart-bar'
       },
       {
-        name: 'Персонал',
-        to: '/staff'
+        name: 'Чаты',
+        to: '/chats',
+        icon: 'mdi-account-card-outline'
+      },
+      {
+        name: 'Доносы',
+        to: '/denunciations',
+        icon: 'mdi-account'
+      },
+      {
+        name: 'Запуск бота',
+        to: '/bots',
+        icon: 'mdi-robot-excited-outline'
+      },
+      {
+        name: 'Выход',
+        to: '',
+        icon: 'mdi-logout'
       }
     ])
 
@@ -97,19 +73,14 @@
       if (item.to) {
         return
       }
-      localStorage.removeItem('user')
+      store.commit('setUser', null)
       router.push('/auth')
     }
 </script>
 
 <style scoped lang="scss">
-.v-navigation-drawer {
-  border-radius: 0 1.25rem 1.25rem 0;
-  background-color: #5a69de !important;
-}
-
 .menu {
-  max-width: 40rem;
+  max-width: 45rem;
 
   ::v-deep(.v-navigation-drawer__content) {
     display: flex;
@@ -125,6 +96,16 @@
     border-radius: 5px;
   }
 
+  .logo {
+    width: 100%;
+    height: 200px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
   &__title {
     span {
       font-weight: 500;
@@ -135,9 +116,8 @@
 
   &__content {
     width: 100%;
-    max-width: 16.5rem;
   }
-  .v-list-item__title {
+  .v-list-item-title {
     font-size: 1.125rem !important;
     font-weight: 300 !important;
     line-height: 1.56rem;

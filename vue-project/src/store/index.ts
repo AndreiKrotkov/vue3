@@ -3,7 +3,7 @@ import { createStore } from 'vuex'
 const state = {
   basket: [],
   loading: false,
-  user: {},
+  user: null,
   productList: []
 }
 
@@ -38,6 +38,9 @@ const mutations = {
   },
   setUser(state: any, value: any) {
     state.user = value
+  },
+  setLoading(state: any, value: boolean) {
+    state.loading = value
   }
 }
 

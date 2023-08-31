@@ -14,19 +14,19 @@ const router = createRouter({
       component: () => import('../views/Index.vue')
     },
     {
-      path: '/making_order',
-      name: 'making_order',
-      component: () => import('../views/MakingOrder.vue')
+      path: '/chats',
+      name: 'chats',
+      component: () => import('../views/chats.vue')
     },
     {
-      path: '/product_card',
-      name: 'product_card',
-      component: () => import('../views/ProductCard.vue')
+      path: '/denunciations',
+      name: 'denunciations',
+      component: () => import('../views/denunciations.vue')
     },
     {
-      path: '/admin',
-      name: 'admin',
-      component: () => import('../views/Admin.vue')
+      path: '/bots',
+      name: 'bots',
+      component: () => import('../views/bots.vue')
     }
   ]
 })
